@@ -1,0 +1,7 @@
+fastpaced_videos.import_settings_form:
+  title: 'Fast Paced Import Settings'
+  route_name: fastpaced_videos.import_settings_form
+  description: 'Import configuration'
+  parent: system.admin_config_system
+  weight: 99
+
