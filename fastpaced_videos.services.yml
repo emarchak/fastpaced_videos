@@ -1,0 +1,5 @@
+services:
+  fastpaced_videos.import:
+    class: Drupal\fastpaced_videos\ImportService
+    arguments: ["@entity.query", "@entity.manager"]
+
