@@ -1,0 +1,74 @@
+<?php
+
+/**
+ * @file
+ * Contains fastpaced_videos.module.
+ */
+
+use Drupal\Core\Url;
+use Drupal\Component\Serialization\Json;
+
+/**
+ * Implements hook_cron().
+ */
+function fastpaced_videos_cron() {
+  // We access our configuration.
+  $config = Drupal::configFactory()
+    ->getEditable('fastpaced_videos.importsettings');
+
+  // Get configuration
+  $import_max   = $config->get('import_max');
+  $import_max   = $import_max ? $import_max : '10';
+  $imported     = 0;
+
+  $search_terms = urlencode($config->get('search_terms'));
+  $feed_url     = Url::fromUri(
+    'https://www.googleapis.com/youtube/v3/search',
+    [ 'query' => [
+      'q'          => $search_terms,
+      'part'       => 'snippet',
+      'type'       => 'video',
+      'safeSearch' => 'strict',
+      'maxResult'  => '50',
+      'key'        => $_SERVER['GGL_API_KEY']
+    ]])->toString();
+
+  // Grab feed.
+  $client   = Drupal::httpClient();
+  $response = $client->request('GET', $feed_url);
+
+  try {
+    if ($response->getReasonPhrase() != 'OK') {
+      throw new Exception(t(
+        'Received status @status',
+        array('$status' => $response->getReasonPhrase())
+      ));
+    }
+    $data           = Json::decode($response->getBody());
+    $import_service = Drupal::service('fastpaced_videos.import');
+
+    // Try to import the amount of nodes allowed.
+    for ($i = 0; ($imported < $import_max) && isset($data['items'][$i]); $i++) {
+      $item      = $data['items'][$i];
+      $video_url = 'https://www.youtube.com/watch?v=' . $item['id']['videoId'];
+
+      // Lookup name to see if the video already exists.
+      $unique = $import_service->uniqueField('field_video', $video_url);
+
+      // Only create the node and increase the counter if nothing exists.
+      if ($unique) {
+        $import_service->createNode($item['snippet']['title'], [
+          'body'        => $item['snippet']['description'],
+          'field_video' => $video_url
+        ]);
+
+        $imported++;
+      }
+    }
+  } catch (RequestException $e) {
+    watchdog_exception('fastpaced_videos', $e);
+  }
+
+  Drupal::logger('fastpaced_videos')
+    ->info('Imported @count fast paced videos', ['@count' => $imported]);
+}
