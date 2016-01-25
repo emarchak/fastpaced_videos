@@ -1,5 +1,8 @@
-name: Fast paced videos
+name: 'Fast paced videos'
 type: module
-description: Some fast videos!
+description: 'Some fast videos!'
 core: 8.x
 package: Custom
+dependencies:
+    - node
+    - user
