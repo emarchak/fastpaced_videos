@@ -1,0 +1,14 @@
+{
+  "name": "drupal/fastpaced_videos",
+  "type": "drupal-module",
+  "description": "Some fast videos!",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/fastpaced_videos",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "http://drupal.org/project/issues/fastpaced_videos",
+    "source": "http://cgit.drupalcode.org/fastpaced_videos"
+  },
+  "require": { }
+}
