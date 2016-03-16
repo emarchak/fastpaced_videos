@@ -1,14 +1,17 @@
 {
-  "name": "drupal/fastpaced_videos",
+  "name": "emarchak/fastpaced_videos",
   "type": "drupal-module",
   "description": "Some fast videos!",
   "keywords": ["Drupal"],
   "license": "GPL-2.0+",
-  "homepage": "https://www.drupal.org/project/fastpaced_videos",
-  "minimum-stability": "dev",
-  "support": {
-    "issues": "http://drupal.org/project/issues/fastpaced_videos",
-    "source": "http://cgit.drupalcode.org/fastpaced_videos"
+  "homepage": "https://github.com/emarchak/fastpaced_videos",
+  "require": {
+    "drupal/video_embed_field": "8.1.0-rc5"
   },
-  "require": { }
+  "version": "dev-master",
+  "source": {
+    "url": "git://github.com//emarchak/fastpaced_videos.git",
+    "type": "git",
+    "reference": "master"
+  }
 }
