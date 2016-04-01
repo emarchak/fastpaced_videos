@@ -1,6 +1,7 @@
 # fastpaced_videos
 
-Setting up your Youtube authorization credentials to make this work
+### Youtube authorization credentials ###
+Some quick instructions for getting your YouTube API Creds
 
 1. Create your project and select the API Services
 https://developers.google.com/youtube/registering_an_application
