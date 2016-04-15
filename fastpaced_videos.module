@@ -5,20 +5,12 @@
  * Contains fastpaced_videos.module..
  */
 
-use Drupal\Core\Routing\RouteMatchInterface;
 
 /**
- * Implements hook_help().
+ * Implements hook_cron().
  */
-function fastpaced_videos_help($route_name, RouteMatchInterface $route_match) {
-  switch ($route_name) {
-    // Main module help for the fastpaced_videos module.
-    case 'help.page.fastpaced_videos':
-      $output = '';
-      $output .= '<h3>' . t('About') . '</h3>';
-      $output .= '<p>' . t('Fast videos for fast developers') . '</p>';
-      return $output;
+function fastpaced_videos_cron() {
 
-    default:
-  }
+  \Drupal::service('fastpaced_videos.import')->import();
+
 }
