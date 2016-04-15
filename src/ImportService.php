@@ -93,12 +93,25 @@ class ImportService {
 
     // Check the result of our search request.
     try {
+      if ($response->getReasonPhrase() != 'OK') {
+        throw new Exception(t(
+          'Received status @status',
+          array('$status' => $response->getReasonPhrase())
+        ));
+      }
 
       // If we have something, list the results.
-      $results = [];
+      $data = $this->serialization_json->decode($response->getBody());
+      $results = $data['items'];
 
       // Loop through the results.
       for ($i = 0; isset($results[$i]); $i++) {
+        // Create the video URL.
+
+        // Check to see if we have the video url imported.
+        $is_new = TRUE;
+        // If we don't have it imported, import it.
+        if ($is_new) {}
 
         // Increment our imported count on successful import.
         $imported++;
