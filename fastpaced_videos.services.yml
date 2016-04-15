@@ -1,5 +1,9 @@
 services:
+  logger.channel.fastpaced_videos:
+    parent: logger.channel_base
+    arguments: ['fastpaced_videos']
+
   fastpaced_videos.import:
     class: Drupal\fastpaced_videos\ImportService
-    arguments: ["@http_client", "@entity.query", "@entity_type.manager", "@config.factory", "@serialization.json"]
+    arguments: ["@http_client", "@entity.query", "@entity_type.manager", "@config.factory", "@serialization.json", "@logger.channel.fastpaced_videos"]
 
