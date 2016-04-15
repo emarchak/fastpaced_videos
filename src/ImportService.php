@@ -13,6 +13,7 @@ use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Config\ConfigFactory;
 use Drupal\Component\Serialization\Json;
 use Psr\Log\LoggerInterface;
+use Drupal\Core\Url;
 
 /**
  * Class ImportService.
@@ -87,6 +88,8 @@ class ImportService {
       ->info('Searching for @terms', ['@terms' => $search_terms]);
 
     // Query YouTube based on our search results.
+    $search_url = $this->getSearchURL($search_terms);
+    $response = $this->http_client->request('GET', $search_url);
 
     // Check the result of our search request.
     try {
@@ -110,6 +113,25 @@ class ImportService {
     // Log how many videos we’ve imported.
     $this->logger
       ->info('Imported @count fast paced videos', ['@count' => $imported]);
+  }
+
+  /**
+   * @param string $search_terms
+   * @return string
+   */
+  protected function getSearchURL($search_terms = '') {
+    $search_url = '';
+    $search_url = URL::fromUri(
+      'https://www.googleapis.com/youtube/v3/search',
+      [ 'query' => [
+        'q'           => urlencode($search_terms),
+        'part'        => 'snippet',
+        'type'        => 'video',
+        'safeSearch'  => 'strict',
+        'maxResults'  => '50',
+        'key'         => $_SERVER['GGL_API_KEY']
+      ]])->toUriString();
+    return $search_url;
   }
 
 }
