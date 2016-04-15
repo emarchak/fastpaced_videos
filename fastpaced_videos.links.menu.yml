@@ -1,0 +1,7 @@
+fastpaced_videos.config_form:
+  title: 'Fast Paced Configuration'
+  route_name: fastpaced_videos.config_form
+  description: 'Terms for a quick search'
+  parent: system.admin_config_services
+  weight: 99
+

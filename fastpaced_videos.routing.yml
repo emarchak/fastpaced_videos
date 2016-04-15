@@ -1,0 +1,11 @@
+
+fastpaced_videos.config_form:
+  path: '/admin/config/fastpaced_videos/config'
+  defaults:
+    _form: '\Drupal\fastpaced_videos\Form\ConfigForm'
+    _title: 'ConfigForm'
+  requirements:
+    _permission: 'access administration pages'
+  options:
+    _admin_route: TRUE
+
