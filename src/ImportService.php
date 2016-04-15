@@ -81,6 +81,10 @@ class ImportService {
   public function import() {
     $imported = 0;
     // Get our search parameters.
+    $config = $this->config_factory->getEditable('fastpaced_videos.importsettings');
+    $search_terms = $config->get('search_terms');
+    $this->logger
+      ->info('Searching for @terms', ['@terms' => $search_terms]);
 
     // Query YouTube based on our search results.
 
