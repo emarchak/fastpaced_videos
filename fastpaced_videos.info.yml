@@ -1,0 +1,7 @@
+name: Fastpaced Videos
+type: module
+description: Fast videos for fast developers
+core: 8.x
+package: Custom
+dependencies:
+  - video_embed_field
