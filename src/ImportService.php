@@ -110,7 +110,7 @@ class ImportService {
         $video_url = $this->getVideoURl($results[$i]);
 
         // Check to see if we have the video url imported.
-        $is_new = TRUE;
+        $is_new = $this->uniqueField('field_video', $video_url);
         // If we don't have it imported, import it.
         if ($is_new) {}
 
@@ -164,6 +164,23 @@ class ImportService {
       ]])->toUriString();
 
     return $video_url;
+  }
+
+  /**
+   * Check if file is unique among nodes.
+   *
+   * @param string $field
+   * @param string $value
+   * @return bool
+   */
+  protected function uniqueField($field = '', $value = '') {
+    $result = $this->entity_query->get('node')
+      ->condition($field, $value, '=')
+      ->execute();
+
+    $unique = empty($result);
+
+    return $unique;
   }
 
 }
