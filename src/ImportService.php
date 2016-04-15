@@ -80,6 +80,29 @@ class ImportService {
    */
   public function import() {
     $imported = 0;
+    // Get our search parameters.
+
+    // Query YouTube based on our search results.
+
+    // Check the result of our search request.
+    try {
+
+      // If we have something, list the results.
+      $results = [];
+
+      // Loop through the results.
+      for ($i = 0; isset($results[$i]); $i++) {
+
+        // Increment our imported count on successful import.
+        $imported++;
+
+      }
+
+    } catch (RequestException $e) {
+
+      watchdog_exception('fastpaced_videos', $e);
+    }
+
     // Log how many videos we’ve imported.
     $this->logger
       ->info('Imported @count fast paced videos', ['@count' => $imported]);
