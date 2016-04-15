@@ -3,10 +3,14 @@ status: true
 dependencies:
     config:
         - field.field.node.video.body
+        - field.field.node.video.field_video
         - node.type.video
     module:
         - text
         - user
+        - video_embed_field
+_core:
+    default_config_hash: Iv2Pcxlt1VSDPWYbiMgnB_PNIxqcTN0lY5ptJ_vU6hI
 id: node.video.default
 targetEntityType: node
 bundle: video
@@ -15,9 +19,21 @@ content:
     body:
         label: hidden
         type: text_default
-        weight: 101
+        weight: 2
         settings: {  }
         third_party_settings: {  }
+    field_video:
+        weight: 1
+        label: hidden
+        settings:
+            responsive: false
+            width: '854'
+            height: '480'
+            autoplay: true
+        third_party_settings: {  }
+        type: video_embed_field_video
     links:
-        weight: 100
+        weight: 0
+        settings: {  }
+        third_party_settings: {  }
 hidden: {  }

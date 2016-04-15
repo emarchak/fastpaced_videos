@@ -6,6 +6,8 @@ dependencies:
         - node.type.video
     module:
         - text
+_core:
+    default_config_hash: hl-nji9PrbgKYEVumMUFQdn8wMzJIDhHdlLLyhGgnP4
 id: node.video.body
 field_name: body
 entity_type: node

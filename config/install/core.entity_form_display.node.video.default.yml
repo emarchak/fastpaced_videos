@@ -3,10 +3,14 @@ status: true
 dependencies:
     config:
         - field.field.node.video.body
+        - field.field.node.video.field_video
         - node.type.video
     module:
         - path
         - text
+        - video_embed_field
+_core:
+    default_config_hash: Adhi6dCDp_OLajl7vg3QTL-TKUA13DZg6yBYcykenpg
 id: node.video.default
 targetEntityType: node
 bundle: video
@@ -25,6 +29,11 @@ content:
         weight: 10
         settings: {  }
         third_party_settings: {  }
+    field_video:
+        weight: 32
+        settings: {  }
+        third_party_settings: {  }
+        type: video_embed_field_textfield
     path:
         type: path
         weight: 30
