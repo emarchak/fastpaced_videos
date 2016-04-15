@@ -107,6 +107,7 @@ class ImportService {
       // Loop through the results.
       for ($i = 0; isset($results[$i]); $i++) {
         // Create the video URL.
+        $video_url = $this->getVideoURl($results[$i]);
 
         // Check to see if we have the video url imported.
         $is_new = TRUE;
@@ -145,6 +146,24 @@ class ImportService {
         'key'         => $_SERVER['GGL_API_KEY']
       ]])->toUriString();
     return $search_url;
+  }
+
+  /**
+   * Helper method to return the video URL
+   * @param array $item
+   * @return string
+   */
+
+  protected function getVideoURL($item = []) {
+    $video_url = '';
+
+    $video_url = Url::fromUri(
+      'https://www.youtube.com/watch',
+      [ 'query' => [
+        'v' => $item['id']['videoId']
+      ]])->toUriString();
+
+    return $video_url;
   }
 
 }
