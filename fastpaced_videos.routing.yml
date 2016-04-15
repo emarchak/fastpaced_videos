@@ -9,3 +9,20 @@ fastpaced_videos.config_form:
   options:
     _admin_route: TRUE
 
+
+# In order to to create pages it is necessary to define routes for them.
+# A route maps a URL path to a controller. It defines with what function
+# or method will be called when a URL is accessed.
+# If the user accesses http://drupal8.dev/front, the routing
+# system will look for a route with that path. In this case it will find a
+# match, and execute the _controller callback. In this case the callback is
+# defined as a classname
+# ("\Drupal\fastpaced_videos\Controller\FrontPageController")
+# and a method ("load").
+fastpaced_videos.front_page_controller_load:
+  path: 'front'
+  defaults:
+    _controller: '\Drupal\fastpaced_videos\Controller\FrontPageController::load'
+    _title: 'Front'
+  requirements:
+    _permission: 'access content'
