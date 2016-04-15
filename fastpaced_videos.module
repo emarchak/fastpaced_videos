@@ -14,3 +14,17 @@ function fastpaced_videos_cron() {
   \Drupal::service('fastpaced_videos.import')->import();
 
 }
+
+/**
+ * Implements hook_theme().
+ */
+
+function fastpaced_videos_theme() {
+  return [
+    'fastpaced_gallery' => [
+      'variables' => [
+        'videos' => NULL
+      ]
+    ]
+  ];
+}
