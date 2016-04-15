@@ -112,10 +112,19 @@ class ImportService {
         // Check to see if we have the video url imported.
         $is_new = $this->uniqueField('field_video', $video_url);
         // If we don't have it imported, import it.
-        if ($is_new) {}
+        if ($is_new) {
+          $item = $results[$i]['snippet'];
+          $was_saved = $this->createNode($item['title'], [
+            'body'        => $item['description'],
+            'field_video' => $video_url,
+          ]);
 
-        // Increment our imported count on successful import.
-        $imported++;
+          // Increment our imported count on successful import.
+          if ($was_saved) {
+            $imported++;
+          }
+
+        }
 
       }
 
@@ -181,6 +190,31 @@ class ImportService {
     $unique = empty($result);
 
     return $unique;
+  }
+
+  /**
+   * Create node and populate fields for video content types.
+   *
+   * @param string $title
+   * @param array $fields
+   * @return int
+   */
+  protected function createNode($title = '', $fields = []) {
+    $node_storage = $this->entity_type_manager->getStorage('node');
+
+    // Create the node.
+    $node = $node_storage->create([
+      'type'  => 'video',
+      'title' => $title,
+      'uid'   => 1,
+    ]);
+    // Populate the fields
+    foreach ($fields as $field => $value) {
+      $node->set($field, $value);
+    }
+
+    // Save the node
+    return $node->save();
   }
 
 }
